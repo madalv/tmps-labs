@@ -6,8 +6,8 @@ class RetroTV {
         println("Going up to the TV like in the good ol' days.")
     }
 
-    fun turnRandomWheel() {
-        println("Turning some unspecified wheel, hope it's what we need.")
+    fun turnRandomWheel(channel: Int) {
+        println("Turning some unspecified wheel to $channel, hope it's what we need.")
     }
 
     fun pressButton(btn: String) {

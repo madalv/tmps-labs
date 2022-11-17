@@ -2,36 +2,74 @@ package lab3.hometheater
 
 import lab3.hometheater.film.*
 import lab3.hometheater.subsystem.*
-import lab3.hometheater.subsystem.tvs.ModernTV
-import lab3.hometheater.subsystem.tvs.RetroTV
+import lab3.hometheater.subsystem.remotes.Remote
+import lab3.hometheater.subsystem.remotes.UniversalRemote
 import lab3.hometheater.subsystem.tvs.RetroTVAdapter
+import lab3.hometheater.subsystem.tvs.SonyTV
+import lab3.hometheater.subsystem.tvs.TV
 
 class HomeTheaterFacade {
     private val amp: Amplifier = Amplifier()
-    private val tuner: Tuner = Tuner()
+    private val projector: Projector = Projector()
     private val player: StreamingPlayer = StreamingPlayer()
-    private lateinit var tv: TV
     private val popcornMachine: PopcornMachine = PopcornMachine()
+    private lateinit var tv: TV
+    private lateinit var remote: Remote
 
-    fun watchFilm(component: GenreComponent) {
-        tv = ModernTV()
-        if (component is Film) {
-            println("Setting system up to watch... ${component.name}.")
-        } else {
-            println("Setting system up to watch... the ${component.name} genre playlist.")
-        }
+    fun init() {
+        tv = SonyTV(1)
+        remote = UniversalRemote(tv)
+    }
+
+    fun stream(component: GenreComponent) {
 
         popcornMachine.on()
         popcornMachine.makePopcorn("classic")
         popcornMachine.off()
 
+        remote.on()
+
+        projector.on()
+        projector.connect(tv)
+        projector.setWideMode()
+
+        amp.on()
+        amp.connect(tv)
+        amp.setSound(10)
+
+        player.on()
+        player.connect(tv)
+        player.play(component)
+
         println("-------------------------")
     }
 
+    fun turnOffSystem() {
+        player.off()
+        amp.off()
+        projector.off()
+        remote.off()
+        println("-------------------------")
+    }
+
+    fun changeFilm(component: GenreComponent) {
+        player.pause()
+        player.play(component)
+        println("-------------------------")
+    }
+
+    fun watchCable() {
+        player.off()
+        amp.off()
+        projector.off()
+        remote.on()
+        remote.setChannel(13)
+    }
+
     fun watchGrandmasTV() {
-        tv = RetroTVAdapter()
+        tv = RetroTVAdapter(1)
         tv.turnOn()
-        tv.changeChannel()
+        tv.tuneChannel(12)
         tv.turnOff()
         println("-------------------------")
     }

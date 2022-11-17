@@ -1,8 +1,8 @@
 package lab3.hometheater.subsystem.tvs
 
-import lab3.hometheater.subsystem.TV
-
-class RetroTVAdapter: TV {
+class RetroTVAdapter(
+    override var currentChannel: Int
+    ) : TV {
 
     private val retroTV: RetroTV = RetroTV()
 
@@ -16,8 +16,8 @@ class RetroTVAdapter: TV {
         retroTV.pressButton("OFF")
     }
 
-    override fun changeChannel() {
+    override fun tuneChannel(channel: Int) {
         retroTV.goUpToTV()
-        retroTV.turnRandomWheel()
+        retroTV.turnRandomWheel(channel)
     }
 }
