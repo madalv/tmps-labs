@@ -13,4 +13,6 @@
   - Decorator: PopcornDecorators can be used to decorate Popcorn.
   - Bridge: The Remote can be though of as a "abstraction" to the TV. To bridge 
   the abstraction (Remote) and implementation (TV), the Remote class delegates all work to the actual implementation, of which it has a reference.
-  Now both the variations of the "abstraction" (Remote) and implementation (TV) can work with each other.  
+  Now both the variations of the "abstraction" (Remote) and implementation (TV) can work with each other.
+- Lab 4 - Behavioral Design Patterns
+  - Check the report in `lab4/report` for details. 
